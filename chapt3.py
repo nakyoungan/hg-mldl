@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
 
 perch_length = np.array([8.4, 13.7, 15.0, 16.2, 17.4, 18.0, 18.7, 19.0, 19.6, 20.0, 21.0,
        21.0, 21.0, 21.3, 22.0, 22.0, 22.0, 22.0, 22.0, 22.5, 22.5, 22.7,
@@ -22,10 +23,15 @@ train_input = train_input.reshape(-1,1)
 test_input = test_input.reshape(-1,1)
 
 knr = KNeighborsRegressor()
+lr = LinearRegression()
 
 #KNN train
 knr.fit(train_input, train_target)
 #모델이 길이 50인 농어 무게 예측
-print(knr.predict([[50]]))
+# print(knr.predict([[50]]))
 
-print(knr.score(test_input, test_target))
+# print(knr.score(test_input, test_target))
+
+#Linear Regression train
+lr.fit(train_input, train_target)
+print(lr.predict([[50]]))
