@@ -35,3 +35,4 @@ knr.fit(train_input, train_target)
 #Linear Regression train
 lr.fit(train_input, train_target)
 print(lr.predict([[50]]))
+
