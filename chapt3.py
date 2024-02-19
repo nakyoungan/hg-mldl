@@ -18,7 +18,16 @@ perch_weight = np.array([5.9, 32.0, 40.0, 51.5, 70.0, 100.0, 78.0, 80.0, 85.0, 8
        850.0, 900.0, 1015.0, 820.0, 1100.0, 1000.0, 1100.0, 1000.0,
        1000.0])
 
+#농어데이터 산점도 찍어보기
+plt.scatter(perch_length, perch_weight)
+plt.xlabel('length')
+plt.ylabel('weight')
+plt.show()
+
+#훈련세트와 테스트세트로 나누기
 train_input, test_input, train_target, test_target = train_test_split(perch_length, perch_weight, random_state=42)
+
+#사이킷런 사용을 위해 배열 2차원으로 변경
 train_input = train_input.reshape(-1,1)
 test_input = test_input.reshape(-1,1)
 
