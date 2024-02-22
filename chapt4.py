@@ -5,6 +5,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LogisticRegression
+from scipy.special import softmax
 
 
 fish = pd.read_csv('https://bit.ly/fish_csv')
@@ -29,3 +30,5 @@ lr.fit(train_scaled, train_target)
 
 print(lr.score(train_scaled, train_target))
 print(lr.score(test_scaled, test_target))
+
+print(lr.predict(test_scaled[:5]))
