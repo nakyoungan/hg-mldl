@@ -17,7 +17,7 @@ target = wine['class'].to_numpy()
 #train_test_split의 기본 test set는 25%인데 지금 데이터가 충분히 많으므로 20%로 test size 지정
 train_input, test_input, train_target, test_target = train_test_split(data, target, test_size=0.2, random_state=42)
 
-#전처리
+#전처리 > decision tree에서는 필요X
 ss = StandardScaler()
 ss.fit(train_input)
 train_scaled = ss.transform(train_input)
@@ -31,7 +31,7 @@ print(lr.score(train_scaled, train_target))
 print(lr.score(test_scaled, test_target))
 '''
 
-dt = DecisionTreeClassifier(random_state=42, max_depth =3)
+dt = DecisionTreeClassifier(random_state=42, max_depth =10)
 dt.fit(train_input, train_target)
 print(dt.score(train_input, train_target))
 print(dt.score(test_input, test_target))
@@ -41,3 +41,4 @@ plt.figure(figsize=(10,7))
 plot_tree(dt, filled=True, feature_names=['alcohol', 'sugar', 'pH'])      #max_depth=1 : decision tree 첫 번째만 출력
 plt.show()
 
+print(dt.feature_importances_)      #특성 중요도 (알콜도수, 당도, pH 순서) 다 더하면 1
