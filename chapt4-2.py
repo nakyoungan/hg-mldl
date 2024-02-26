@@ -30,7 +30,7 @@ print(sc.score(train_scaled, train_target))
 print(sc.score(test_scaled, test_target))
 '''
 
-'''
+
 #적당한 에폭 찾기
 sc = SGDClassifier(loss='log_loss', max_iter=10, random_state=42) 
 train_score = []
@@ -46,7 +46,7 @@ plt.plot(train_score)
 plt.plot(test_score)
 plt.show()
 #100번이 적당하군!
-'''
+
 
 #tol : 일정 에포크 동안 성능이 향상되지 않으면 더 훈련하지 않고 자동으로 멈추는데 tol을 none으로 설정하여 무조건 100번 반복하도록 함.
 sc = SGDClassifier(loss='log_loss', max_iter=100, tol=None, random_state=42) 
