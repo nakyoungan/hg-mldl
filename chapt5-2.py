@@ -9,6 +9,7 @@ from sklearn.model_selection import cross_validate
 import numpy as np
 from sklearn.model_selection import StratifiedKFold
 from sklearn.model_selection import GridSearchCV
+from scipy.stats import uniform, randint
 
 wine = pd.read_csv('https://bit.ly/wine-date')
 
@@ -44,3 +45,8 @@ dt=gs.best_estimator_
 print(dt.score(train_input, train_target))
 #그리도 서치로 찾은 최적의 매개변수는 best_params_ 속성에 저장되어 있음
 print(gs.best_params_)
+
+rgen = randint(0, 10)
+rgen.rvs(10)
+
+print(dt.feature_importances_)
