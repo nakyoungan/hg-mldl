@@ -7,40 +7,35 @@ from sklearn.cluster import KMeans
 fruits = np.load('fruits_300.py')
 fruits_2d = fruits.reshape(-1,100*100)
 
-km = KMeans(n_clusters=3, random_state=42)
-km.fit(fruits_2d)
-print(np.unique(km.labels_, return_counts=True))
+# imshow로 numpy 배열로 저장된 이미지 출력(밝을수록 255 짙을수록 0)
+plt.imshow(fruits[0], cmap='gray')
+plt.show()
 
-'''
-클러스터별 이미지 생성 함수 생성
+# cmap = 'gray_r'로 흑백을 반전(밝을수록 0 짙을수록 255)
+plt.imshow(fruits[0], cmap='gray_r')
+plt.show()
 
-def draw_fruits(arr, ratio=1) :
-    n = len(arr) # n은 샘플 개수
-    # 한 행에 10개씩 이미지 생성
-    rows = int(np.ceil(n/10))
-    # 행이 1개면 열의 개수는 샘플 개수, 그렇지 않으면 10개
-    cols = n if rows < 2 else 10
-    
-    fig,axs = plt.subplots(rows, cols, figsize=(cols*ratio, rows*ratio), squeeze=False)
-    for i in range(rows):
-        for j in range(cols):
-            if i*10 + j < n :
-                axs[i,j].imshow(arr[i*10+j], cmap='gray_r')
-            axs[i,j].axis('off')
-    plt.show()
+# 파인애플, 바나나 이미지 출력
+fig,axs = plt.subplots(1,2)
+axs[0].imshow(fruits[100], cmap='gray_r')
+axs[1].imshow(fruits[200], cmap='gray_r')
+plt.show()
 
-#각 라벨별 클러스터 이미지 추출
-draw_fruits(fruits[km.labels_==0])
-draw_fruits(fruits[km.labels_==1])
-draw_fruits(fruits[km.labels_==2])
-'''
+apple = fruits[:100].reshape(-1,100*100)
+pineapple = fruits[100:200].reshape(-1,100*100)
+banana = fruits[200:300].reshape(-1,100*100)
 
-inertia= []
-for k in range(2,7) :
-    km = KMeans(n_clusters=k, random_state=42)
-    km.fit(fruits_2d)
-    inertia.append(km.inertia_)
-plt.plot(range(2,7), inertia)
-plt.xlabel('k')
-plt.ylabel('inertia')
+apple_mean = np.mean(apple, axis=0).reshape(100,100)
+pineapple_mean = np.mean(pineapple, axis=0).reshape(100,100)
+banana_mean = np.mean(banana, axis=0).reshape(100,100)
+
+abs_diff = np.abs(fruits - apple_mean)
+abs_mean = np.mean(abs_diff, axis=(1,2))
+
+apple_index = np.argsort(abs_mean)[:100]
+fig, axs = plt.subplots(10,10,figsize=(10,10))
+for i in range(10):
+    for j in range(10):
+        axs[i,j].imshow(fruits[apple_index[i*10+j]], cmap='gray_r')
+        axs[i,j].axis('off') # 축을 안보이게 함
 plt.show()
